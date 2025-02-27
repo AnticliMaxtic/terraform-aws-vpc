@@ -152,6 +152,9 @@ resource "aws_subnet" "public" {
     var.public_subnet_tags,
     lookup(var.public_subnet_tags_per_az, element(var.azs, count.index), {})
   )
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }
 
 locals {
@@ -287,6 +290,9 @@ resource "aws_subnet" "private" {
     var.private_subnet_tags,
     lookup(var.private_subnet_tags_per_az, element(var.azs, count.index), {})
   )
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }
 
 # There are as many routing tables as the number of NAT gateways
